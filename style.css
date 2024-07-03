@@ -8,3 +8,97 @@ Version: 1.0
 Tags: openclassrooms, motaphoto, photo
 Text Domain: motaphoto
 */
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.site-logo{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+nav {
+    display: flex;
+    justify-content: space-between; /* Pour séparer le logo et les liens */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 20px; /* Espacement entre les liens */
+}
+.nav-menu a {
+    text-decoration: none;
+    padding: 10px 15px; /* Espacement autour des liens */
+   
+}
+#primary-menu ,ul {
+    list-style-type: none;
+}
+
+/* PHOTO */
+#primary {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#content > div {
+    flex-grow: 1;
+    display: flex;
+}
+
+#content > div > div {
+    width: 50%;
+    padding: 20px;
+}
+
+#content > div > div img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#contact-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#contact-modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+#contact-modal button {
+    margin-top: 10px;
+}
+
+.navigation-link {
+    margin-left: 10px;
+}
+
+.navigation-link:hover::after {
+    content: attr(data-thumbnail);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    z-index: 1000;
+}
+
