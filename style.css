@@ -39,66 +39,34 @@ nav {
 }
 
 /* PHOTO */
-#primary {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+body {
+    font-family: 'Space Mono', monospace;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-#content > div {
-    flex-grow: 1;
-    display: flex;
-}
-
-#content > div > div {
+.content-block {
     width: 50%;
     padding: 20px;
-}
-
-#content > div > div img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-#contact-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-#contact-modal form {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end; /* Positionne le contenu en bas du conteneur */
+    /* height: 100vh; Ajoute une hauteur pour l'exemple */
 }
 
-#contact-modal button {
-    margin-top: 10px;
+.content-block h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 66px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 58px;
+    text-align: left;
+    margin: 0; /* Supprime la marge par défaut */
 }
 
-.navigation-link {
-    margin-left: 10px;
+.content-block p {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    margin: 10px 0; /* Espacement vertical entre les paragraphes */
 }
-
-.navigation-link:hover::after {
-    content: attr(data-thumbnail);
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    background-size: cover;
-    z-index: 1000;
-}
-

@@ -3,22 +3,22 @@ get_header();
 ?>
 
 <div id="primary">
-    <div id="content" role="main" style="display: flex; flex-direction: column; height: 100vh;">
+    <div id="content" role="main" style="display: flex; flex-direction: column; height: 80vh;">
 
         <?php while ( have_posts() ) : the_post(); ?>
 
             <div style="display: flex; flex-grow: 1;">
-                <div style="width: 50%; padding: 20px;">
-                    <h1><?php the_title(); ?></h1>
-
-                    <p><strong>Réf. Photo:</strong> <?php the_field('photo_ref'); ?></p>
+                <div class="content-block">
+                    <h2><?php the_title(); ?></h2>
+                     <!-- Afficher le termes "reference" -->
+                    <p><strong>Référence :</strong> <?php the_field('reference'); ?></p>
 
                     <?php 
                     // Afficher les termes de la taxonomie "Catégories"
                     $categories = get_the_terms( get_the_ID(), 'categorie' );
                     if ( !empty($categories) && !is_wp_error($categories) ) {
                         $categorie_names = wp_list_pluck($categories, 'name');
-                        echo '<p><strong>Catégorie:</strong> ' . implode(', ', $categorie_names) . '</p>';
+                        echo '<p><strong>catégorie :</strong> ' . implode(', ', $categorie_names) . '</p>';
                     }
                     ?>
 
@@ -27,15 +27,16 @@ get_header();
                     $formats = get_the_terms( get_the_ID(), 'format' );
                     if ( !empty($formats) && !is_wp_error($formats) ) {
                         $format_names = wp_list_pluck($formats, 'name');
-                        echo '<p><strong>Format:</strong> ' . implode(', ', $format_names) . '</p>';
+                        echo '<p><strong>format :</strong> ' . implode(', ', $format_names) . '</p>';
                     }
                     ?>
-
-                    <p><strong>Date de prise de vue:</strong> <?php the_field('photo_date'); ?></p>
+                    <!-- Afficher le termes "type" -->
+                    <p><strong>type :</strong> <?php the_field('type'); ?></p>
+                    <p><strong>année :</strong> <?php the_field('date'); ?></p>
                 </div>
                 <div style="width: 50%; display: flex; justify-content: center; align-items: center;">
                     <?php 
-                    $image = get_field('hero_image');
+                    $image = get_field('photo');
                     if ($image) :
                     ?>
                         <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" style="max-width: 100%; max-height: 100%;" />
@@ -44,7 +45,7 @@ get_header();
             </div>
 
             <div style="height: 118px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
-                <a href="#" id="contact-link" data-photo-id="<?php the_ID(); ?>">Contactez-moi</a>
+                <a href="#" id="contact-link" data-photo-id="<?php the_ID(); ?>">Contact</a>
                 <div>
                     <?php 
                     $prev_post = get_previous_post();
@@ -72,7 +73,7 @@ get_header();
 <!-- Modal de contact -->
 <div id="contact-modal" style="display: none;">
     <div>
-        <h2>Contactez-moi</h2>
+        <h2>Contact</h2>
         <form>
             <label for="photo_ref">Réf. Photo</label>
             <input type="text" id="photo_ref" name="photo_ref" readonly>

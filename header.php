@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>motaphoto</title>
     <?php wp_head(); // Appelle les hooks d'en-tête de WordPress ?>
+        <!-- Inclure la police Space Mono -->
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     
