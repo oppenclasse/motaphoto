@@ -17,3 +17,16 @@
 //         }
 //     }
 // });
+
+jQuery(document).ready(function($) {
+    $('.navigation-link').each(function() {
+        var img = new Image();
+        img.src = $(this).data('thumbnail');
+    });
+
+    $('.navigation-link').hover(function() {
+        $(this).find('.thumbnail-preview').show();
+    }, function() {
+        $(this).find('.thumbnail-preview').hide();
+    });
+});

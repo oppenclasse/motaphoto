@@ -8,9 +8,15 @@ Version: 1.0
 Tags: openclassrooms, motaphoto, photo
 Text Domain: motaphoto
 */
+body{
+    padding: 0em 3em;
+}
+
 header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    /* height: 30px; */
 }
 
 .site-logo{
@@ -39,34 +45,154 @@ nav {
 }
 
 /* PHOTO */
-body {
-    font-family: 'Space Mono', monospace;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+.titre-photo-container{
+display: grid;
+grid-template-columns: 50% 50%;
 }
 
-.content-block {
-    width: 50%;
-    padding: 20px;
+.titre-container{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Positionne le contenu en bas du conteneur */
-    /* height: 100vh; Ajoute une hauteur pour l'exemple */
-}
+    justify-content: end;
 
-.content-block h2 {
+    border-bottom: 2px solid #000;
+}
+.titre-container h2{
     font-family: 'Space Mono', monospace;
     font-size: 66px;
     font-style: italic;
     font-weight: 400;
     line-height: 58px;
     text-align: left;
+    text-transform: uppercase;
+    width: 5.5em;
+    margin-bottom: 2.5em;
     margin: 0; /* Supprime la marge par défaut */
 }
-
-.content-block p {
+.titre-container p{
     font-family: 'Space Mono', monospace;
     text-transform: uppercase;
     margin: 10px 0; /* Espacement vertical entre les paragraphes */
+}
+
+
+.photo-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ajuste l'image pour qu'elle reste dans le conteneur */
+}
+
+.contact{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    padding: 20px 0px;
+}
+.contact-interesse{
+    display:flex ;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact-interesse p{
+    font-family: 'Space Mono', monospace;
+}
+
+.btn{
+    width: 272px;
+    height: 50px;
+    top: 1000px;
+    left: 438px;
+    padding: 8px 15px 8px 15px;
+    gap: 10px;
+    border-radius: 2px 0px 0px 0px;
+    opacity: 0px;
+}
+
+
+
+
+.nav-links {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 100%;
+    gap: 10px; /* Espacement entre les flèches */
+}
+
+.navigation-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+}
+
+.thumbnail-preview {
+    display: none;
+    position: absolute;
+    top: -120px; /* Ajustez selon vos besoins */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.thumbnail-preview img {
+    max-width: 100px; /* Ajustez selon vos besoins */
+    max-height: 100px;
+}
+
+.navigation-link:hover .thumbnail-preview {
+    display: block;
+}
+
+.apparentees-photo{
+    display: grid;
+    height: 500px;
+    grid-template-columns: 50% 50%;
+    gap: 20px; /* Ajoute un espace de 20px entre les colonnes */
+}
+
+
+.apparentees-titre p {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.apparentees-photo img {
+    width: 85%;
+    max-height: 500px;
+}
+
+/* style du footer  */
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border-top: 2px solid #000; /* Bordure noire en haut */
+    margin-top: 20px;
+}
+
+.footer-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: black;
 }

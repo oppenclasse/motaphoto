@@ -1,104 +1,126 @@
-<?php
-get_header(); 
-?>
+<?php get_header(); ?>
 
 <div id="primary">
-    <div id="content" role="main" style="display: flex; flex-direction: column; height: 80vh;">
+    <div class="titre-photo-container">
+        <div class="titre-container">
+            <h2><?php the_title(); ?></h2>
+            <!-- Afficher le terme "Référence" -->
+            <p><strong>Référence :</strong> <?php the_field('reference'); ?></p>
 
-        <?php while ( have_posts() ) : the_post(); ?>
+            <?php 
+            // Afficher les termes de la taxonomie "Catégories"
+            $categories = get_the_terms( get_the_ID(), 'categorie' );
+            if ( !empty($categories) && !is_wp_error($categories) ) {
+                $categorie_names = wp_list_pluck($categories, 'name');
+                echo '<p><strong>Catégorie :</strong> ' . implode(', ', $categorie_names) . '</p>';
+            }
+            ?>
 
-            <div style="display: flex; flex-grow: 1;">
-                <div class="content-block">
-                    <h2><?php the_title(); ?></h2>
-                     <!-- Afficher le termes "reference" -->
-                    <p><strong>Référence :</strong> <?php the_field('reference'); ?></p>
+            <?php 
+            // Afficher les termes de la taxonomie "Formats"
+            $formats = get_the_terms( get_the_ID(), 'format' );
+            if ( !empty($formats) && !is_wp_error($formats) ) {
+                $format_names = wp_list_pluck($formats, 'name');
+                echo '<p><strong>Format :</strong> ' . implode(', ', $format_names) . '</p>';
+            }
+            ?>
+            <!-- Afficher le terme "Type" -->
+            <p><strong>Type :</strong> <?php the_field('type'); ?></p>
+            <p><strong>Année :</strong> <?php the_field('date'); ?></p>
+        </div>
+        <!-- Afficher photo -->
+        <div class="photo-container">
+            <?php 
+            $image = get_field('photo');
+            if ($image) :
+            ?>
+                <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" class="photo-image" />
+            <?php endif; ?>
+        </div>
+    </div><!-- fin de la class titre-photo-container -->
+    <div class="contact">
+        <!-- block grid de gauche -->
+        <div class="contact-interesse">
+            <p>Cette photo vous intéresse ? </p>
+            <button class="btn">
+                <a href="#" id="contact-link" data-photo-id="<?php the_ID(); ?>" class="contact-button">Contact</a>
+            </button>
+        </div>
+        <!-- block grid de droite -->
+        <div class="nav-links">
+            <?php 
+            $prev_post = get_previous_post();
+            if ($prev_post) :
+                $prev_thumbnail = get_the_post_thumbnail_url($prev_post->ID, 'thumbnail');
+            ?>
+                <a href="<?php echo get_permalink($prev_post->ID); ?>" class="navigation-link" data-thumbnail="<?php echo $prev_thumbnail; ?>">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/flechegauche.png" alt="Flèche gauche">
+                    <div class="thumbnail-preview">
+                        <img src="<?php echo $prev_thumbnail; ?>" alt="Précédent">
+                    </div>
+                </a>
+            <?php endif; ?>
 
-                    <?php 
-                    // Afficher les termes de la taxonomie "Catégories"
-                    $categories = get_the_terms( get_the_ID(), 'categorie' );
-                    if ( !empty($categories) && !is_wp_error($categories) ) {
-                        $categorie_names = wp_list_pluck($categories, 'name');
-                        echo '<p><strong>catégorie :</strong> ' . implode(', ', $categorie_names) . '</p>';
-                    }
-                    ?>
+            <?php 
+            $next_post = get_next_post();
+            if ($next_post) :
+                $next_thumbnail = get_the_post_thumbnail_url($next_post->ID, 'thumbnail');
+            ?>
+                <a href="<?php echo get_permalink($next_post->ID); ?>" class="navigation-link" data-thumbnail="<?php echo $next_thumbnail; ?>">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/flechedroite.png" alt="Flèche droite">
+                    <div class="thumbnail-preview">
+                        <img src="<?php echo $next_thumbnail; ?>" alt="Suivant">
+                    </div>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <!-- 3eme block -->
+    <div class="apparentees">
+        <div class="apparentees-titre">
+            <p>Vous aimerez aussi</p>
+        </div>
+        <div class="apparentees-photo">
+            <?php
+            // Récupérer les IDs des catégories
+            if ( !empty($categories) && !is_wp_error($categories) ) {
+                $categorie_ids = wp_list_pluck($categories, 'term_id');
 
-                    <?php 
-                    // Afficher les termes de la taxonomie "Formats"
-                    $formats = get_the_terms( get_the_ID(), 'format' );
-                    if ( !empty($formats) && !is_wp_error($formats) ) {
-                        $format_names = wp_list_pluck($formats, 'name');
-                        echo '<p><strong>format :</strong> ' . implode(', ', $format_names) . '</p>';
-                    }
-                    ?>
-                    <!-- Afficher le termes "type" -->
-                    <p><strong>type :</strong> <?php the_field('type'); ?></p>
-                    <p><strong>année :</strong> <?php the_field('date'); ?></p>
-                </div>
-                <div style="width: 50%; display: flex; justify-content: center; align-items: center;">
-                    <?php 
-                    $image = get_field('photo');
-                    if ($image) :
-                    ?>
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" style="max-width: 100%; max-height: 100%;" />
-                    <?php endif; ?>
-                </div>
-            </div>
+                // Arguments pour WP_Query
+                $args = array(
+                    'post_type' => 'photo', // Utilisez le type de post correct
+                    'posts_per_page' => 2,
+                    'post__not_in' => array(get_the_ID()), // Exclure le post actuel
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'categorie',
+                            'field'    => 'term_id',
+                            'terms'    => $categorie_ids,
+                        ),
+                    ),
+                );
 
-            <div style="height: 118px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
-                <a href="#" id="contact-link" data-photo-id="<?php the_ID(); ?>">Contact</a>
-                <div>
-                    <?php 
-                    $prev_post = get_previous_post();
-                    if ($prev_post) :
-                    ?>
-                        <a href="<?php echo get_permalink($prev_post->ID); ?>" class="navigation-link" data-thumbnail="<?php echo get_the_post_thumbnail_url($prev_post->ID); ?>">Précédent</a>
-                    <?php endif; ?>
+                $related_query = new WP_Query( $args );
 
-                    <?php 
-                    $next_post = get_next_post();
-                    if ($next_post) :
-                    ?>
-                        <a href="<?php echo get_permalink($next_post->ID); ?>" class="navigation-link" data-thumbnail="<?php echo get_the_post_thumbnail_url($next_post->ID); ?>">Suivant</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-        <?php endwhile; // end of the loop. ?>
-
-    </div><!-- #content -->
-</div><!-- #primary -->
+                if ( $related_query->have_posts() ) :
+                    while ( $related_query->have_posts() ) : $related_query->the_post();
+                        $related_image = get_field('photo');
+                        if ( $related_image ) :
+            ?>
+                        <div>
+                            <a href="<?php the_permalink(); ?>">
+                                <img src="<?php echo esc_url($related_image['url']); ?>" alt="<?php echo esc_attr($related_image['alt']); ?>">
+                            </a>
+                        </div>
+            <?php
+                        endif;
+                    endwhile;
+                    wp_reset_postdata();
+                endif;
+            }
+            ?>
+        </div>
+    </div>
+</div> <!-- #primary -->
 
 <?php get_footer(); ?>
-
-<!-- Modal de contact -->
-<div id="contact-modal" style="display: none;">
-    <div>
-        <h2>Contact</h2>
-        <form>
-            <label for="photo_ref">Réf. Photo</label>
-            <input type="text" id="photo_ref" name="photo_ref" readonly>
-            <!-- Autres champs de formulaire -->
-            <button type="submit">Envoyer</button>
-        </form>
-        <button id="close-modal">Fermer</button>
-    </div>
-</div>
-
-<script>
-document.getElementById('contact-link').addEventListener('click', function(event) {
-    event.preventDefault();
-    document.getElementById('photo_ref').value = event.target.getAttribute('data-photo-id');
-    document.getElementById('contact-modal').style.display = 'block';
-});
-
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('contact-modal').style.display = 'none';
-});
-
-document.querySelectorAll('.navigation-link').forEach(function(link) {
-    link.addEventListener('mouseover', function() {
-        var thumbnailUrl = link.getAttribute('data-thumbnail');
-        // Afficher la miniature (par exemple, en modifiant l'arrière-plan d'un élément)
-    });
-});
-</script>
