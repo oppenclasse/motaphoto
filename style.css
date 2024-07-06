@@ -149,7 +149,11 @@ grid-template-columns: 50% 50%;
     display: block;
 }
 
-.apparentees-photo{
+.apparentees {
+    border-top: 2px solid #000; /* Bordure noire en haut */
+}
+
+.apparentees-photo {
     display: grid;
     height: 500px;
     grid-template-columns: 50% 50%;
@@ -196,3 +200,65 @@ grid-template-columns: 50% 50%;
     font-size: 14px;
     color: black;
 }
+
+/* style index */
+#hero-image {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+#filters {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#photo-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.photo-item {
+    position: relative;
+    width: calc(25% - 10px);
+    overflow: hidden;
+}
+
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.photo-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.photo-item:hover .overlay {
+    opacity: 1;
+}
+
+.photo-item .overlay a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+#load-more {
+    display: block;
+    margin: 20px auto;
+}
+
