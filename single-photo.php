@@ -156,7 +156,8 @@
     margin: 15% auto; /* Centrer verticalement */
     padding: 20px; /* Espace intérieur */
     border: 1px solid #888; /* Bordure */
-    width: 80%; /* Largeur de la modale */
+    width: 600px; /* Largeur de la modale */
+    height:770px;
 }
 .close {
     color: #aaa; /* Couleur de la croix de fermeture */
