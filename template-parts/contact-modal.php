@@ -1,8 +1,10 @@
 
 <!-- contenue  a modifier  -->
-<div id="contact-modal" style="display: none;">
+<div id="contactModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <?php echo do_shortcode('[contact-form-7 id="5adbf94" title="Contact form 1"]'); ?>
+        <?php echo do_shortcode('[contact-form-7 id="5adbf94" title="Formulaire de contact 1"]'); ?>
     </div>
 </div>
+<!-- remplcer la ligne 6 par le shorcode de contact form7
+ s -->

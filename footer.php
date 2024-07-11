@@ -8,6 +8,13 @@
             <p>&copy; <?php echo date("Y"); ?> Tous droits réservés.</p>
         </div>
     </div>
+    <!-- bouton modal -->
+    <button id="contactBtn">Contactez-nous</button>
+
 </footer>
+<?php wp_footer(); ?>
+<!-- modal  -->
+<?php get_template_part('templates_part/contact-modal'); ?>
+
 </body>
 </html>

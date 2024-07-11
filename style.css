@@ -8,25 +8,28 @@ Version: 1.0
 Tags: openclassrooms, motaphoto, photo
 Text Domain: motaphoto
 */
-body{
+
+/* Styles de base */
+body {
     padding: 0em 3em;
 }
 
-header{
+/* Styles pour le header */
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* height: 30px; */
 }
 
-.site-logo{
+.site-logo {
     display: flex;
     align-items: center;
     padding: 10px 20px;
 }
+
 nav {
     display: flex;
-    justify-content: space-between; /* Pour séparer le logo et les liens */
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
 }
@@ -35,30 +38,30 @@ nav {
     display: flex;
     gap: 20px; /* Espacement entre les liens */
 }
+
 .nav-menu a {
     text-decoration: none;
     padding: 10px 15px; /* Espacement autour des liens */
-   
 }
-#primary-menu ,ul {
+
+#primary-menu, ul {
     list-style-type: none;
 }
 
-/* PHOTO */
-
-.titre-photo-container{
-display: grid;
-grid-template-columns: 50% 50%;
+/* Styles pour les pages de photos (single-photo) */
+.titre-photo-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
-.titre-container{
+.titre-container {
     display: flex;
     flex-direction: column;
     justify-content: end;
-
     border-bottom: 2px solid #000;
 }
-.titre-container h2{
+
+.titre-container h2 {
     font-family: 'Space Mono', monospace;
     font-size: 66px;
     font-style: italic;
@@ -70,12 +73,12 @@ grid-template-columns: 50% 50%;
     margin-bottom: 2.5em;
     margin: 0; /* Supprime la marge par défaut */
 }
-.titre-container p{
+
+.titre-container p {
     font-family: 'Space Mono', monospace;
     text-transform: uppercase;
     margin: 10px 0; /* Espacement vertical entre les paragraphes */
 }
-
 
 .photo-image {
     display: block;
@@ -84,37 +87,34 @@ grid-template-columns: 50% 50%;
     object-fit: contain; /* Ajuste l'image pour qu'elle reste dans le conteneur */
 }
 
-.contact{
+.contact {
     display: grid;
     grid-template-columns: 50% 50%;
     align-items: center;
     padding: 20px 0px;
 }
-.contact-interesse{
-    display:flex ;
+
+.contact-interesse {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.contact-interesse p{
+.contact-interesse p {
     font-family: 'Space Mono', monospace;
 }
 
-.btn{
+.btn {
     width: 272px;
     height: 50px;
-    top: 1000px;
-    left: 438px;
-    padding: 8px 15px 8px 15px;
+    padding: 8px 15px;
     gap: 10px;
     border-radius: 2px 0px 0px 0px;
     opacity: 0px;
 }
 
-
-
-
+/* Styles pour la navigation avec miniatures */
 .nav-links {
     display: flex;
     justify-content: end;
@@ -149,6 +149,7 @@ grid-template-columns: 50% 50%;
     display: block;
 }
 
+/* Styles pour les photos apparentées */
 .apparentees {
     border-top: 2px solid #000; /* Bordure noire en haut */
 }
@@ -159,7 +160,6 @@ grid-template-columns: 50% 50%;
     grid-template-columns: 50% 50%;
     gap: 20px; /* Ajoute un espace de 20px entre les colonnes */
 }
-
 
 .apparentees-titre p {
     font-family: 'Space Mono', monospace;
@@ -172,7 +172,7 @@ grid-template-columns: 50% 50%;
     max-height: 500px;
 }
 
-/* style du footer  */
+/* Styles pour le footer */
 .footer-container {
     display: flex;
     flex-direction: row;
@@ -201,64 +201,88 @@ grid-template-columns: 50% 50%;
     color: black;
 }
 
-/* style index */
-#hero-image {
+/* Styles pour la modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-#filters {
-    margin: 20px 0;
-    text-align: center;
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
 }
 
-#photo-list {
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles pour la page d'accueil */
+.photos-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    
+}
+
+.photos-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Ajoute un espace de 20px entre les photos */
+    margin-top: 20px;
 }
 
 .photo-item {
-    position: relative;
-    width: calc(25% - 10px);
+    width: 564px;
+    height: 495px;
     overflow: hidden;
 }
 
 .photo-item img {
     width: 100%;
-    height: auto;
-    display: block;
-}
-
-.photo-item .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s;
+    object-fit: cover;
+}
+
+.load-more-wrapper {
+    text-align: center;
+}
+
+.load-more-button.loading {
+    cursor: wait;
+}
+
+.photos-list {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 20px; /* Espace entre les photos */
 }
 
-.photo-item:hover .overlay {
-    opacity: 1;
+.photo-item {
+    flex: 0 0 calc(50% - 20px); /* Chaque photo occupe 50% de la largeur de la ligne, moins l'espace entre les photos */
+    box-sizing: border-box;
 }
 
-.photo-item .overlay a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 24px;
+.photo-item img {
+    width: 100%;
+    height: auto; /* Ajustez cette ligne pour maintenir les proportions de l'image */
 }
-
-#load-more {
-    display: block;
-    margin: 20px auto;
-}
-
