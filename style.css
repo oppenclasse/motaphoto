@@ -168,8 +168,9 @@ nav {
 }
 
 .apparentees-photo img {
-    width: 85%;
+    width: 560px;
     max-height: 500px;
+    object-fit: cover;
 }
 
 /* Styles pour le footer */
@@ -258,8 +259,8 @@ nav {
 }
 
 .photo-item img {
-    width: 100%;
-    height: 100%;
+    width: 560px !important;
+    height: 490px !important;
     object-fit: cover;
 }
 
